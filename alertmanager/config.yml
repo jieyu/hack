@@ -17,7 +17,6 @@ receivers:
   slack_configs:
   - channel: '#eng-prometheus-alerts'
     icon_url: https://avatars3.githubusercontent.com/u/3380462
-    api_url: '{{ template "secrets.slack_api_url" . }}'
     send_resolved: true
     color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
     title: '{{ template "slack.default.title" . }}'
