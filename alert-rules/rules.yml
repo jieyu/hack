@@ -1,0 +1,34 @@
+groups:
+- name: Jenkins_Alerts
+  rules:
+    - alert: Test_Jenkins_Alert
+      expr: count(jenkinsstatsd_jenkins_queue_size_value) > 0
+      for: 1m
+      labels:
+         severity: informational
+      annotations:
+         description: 'test alert to check that base condition triggers'
+
+    - alert: Jenkins_Executor_Provision_Time_Error
+      expr: jenkinsstatsd_mesos_cloud_mesos_provision_ready_p99 > 45
+      for: 10m
+      labels:
+         severity: major
+      annotations:
+         description: 'Alert to notify that Jenkins Executors are being provisioned significantly slower than normal'
+
+    - alert: Jenkins_Executors_OverProvisioned_Error
+      expr: sum(jenkinsstatsd_jenkins_executor_free_value) > (count(jenkinsstatsd_jenkins_queue_size_value) * 5)
+      for: 10m
+      labels:
+         severity: major
+      annotations:
+         description: 'Alert to notify that more Jenkins executors are provisioned in the system than expected'
+
+    - alert: Jenkins_High_Rate_Of_Failure_Error
+      expr: sum(jenkinsstatsd_jenkins_runs_failure_m1_rate) > 1
+      for: 10m
+      labels:
+         severity: major
+      annotations:
+         description: 'Alert to notify that there is a higher than normal rate of job failure'
