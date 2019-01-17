@@ -3,7 +3,7 @@ groups:
   rules:
     - alert: Test_Mesos_Alert
       expr: sum(mesos_master_uptime_secs) > 0
-      for: 1m
+      for: 10s
       labels:
          severity: high
       annotations:
