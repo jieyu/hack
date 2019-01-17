@@ -1,8 +1,8 @@
 groups:
-- name: MesosAlerts
+- name: TestAlertGroup
   rules:
-    - alert: Test_Mesos_Alert
-      expr: sum(mesos_master_uptime_secs) > 0
+    - alert: TestAlert
+      expr: sum(system_uptime) > 0
       for: 10s
       labels:
          severity: high
